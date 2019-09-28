@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Guessing Game from Khoa</title>
+</head>
+<body>
+	<h1>Guess the number</h1>
+		<p>We have a random number from 1 to 1000</p>
+	<div style="color: red;font-size: 30px;"  id="message"></div>
+	<div style="color: greenyellow; font-size: 30px;" id="winmessage"></div>
+	<div id="numofguess"></div>
+	<input type="number" id="number">
+	<button id="guessButton">Guess</button>
+	<span id = "start">Previous Guess:</span> <span id = "prevGuess"> </span>
+	<ul id='list'></ul>
+		<script> 
+		let button = document.getElementById("guessButton");
+		let string = document.getElementById("numofguess");
+		let number = Math.floor(Math.random()*1000) + 1;
+		let count = 10;
+		console.log(number);
+		document.getElementById("numofguess").innerHTML = "You have " + count +" guesses left ";
+		let prevGuess = document.getElementById("prevGuess");
+		prevGuess.value = "";
+		button.addEventListener("click", function() {
+			let userGuess = document.getElementById("number").value;
+			prevGuess.value = prevGuess.value + " " + userGuess + " ; ";
+			document.getElementById("prevGuess").innerHTML = prevGuess.value;  
+			if(userGuess == number){
+				//document.getElementById("message").innerHTML = "Correct!";
+				document.getElementById("winmessage").innerHTML = "You win the game!";
+				document.getElementById("numofguess").innerHTML = "";
+				document.getElementById("message").innerHTML = "";
+				document.getElementById("guessButton").disabled = true;
+				document.getElementById("number").disabled = true;
+				return;
+			}
+			else if(count == 1){
+				document.getElementById("message").innerHTML = "Refresh to restart the game!";
+				document.getElementById("numofguess").innerHTML = "You have " + 0 +" guesses left";
+				document.getElementById("guessButton").disabled = true;
+				document.getElementById("number").disabled = true;
+				alert("You lose the game!");
+				return;
+			}
+			else if(userGuess < number){
+				document.getElementById("message").innerHTML = "Please guess larger number!";
+				count--;
+			}
+			else if(userGuess > number){
+				document.getElementById("message").innerHTML = "Please guess smaller number!";
+				count--;
+			}
+			document.getElementById("numofguess").innerHTML = "You have " + count +" guesses left";
+   		});
+
+		</script>
+</body>
+</html>
